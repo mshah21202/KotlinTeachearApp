@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
+import com.example.kotlinteacherapp.databinding.CardViewBinding
 
 class LessonAdapter(
     context: Context,
@@ -25,7 +27,11 @@ class LessonAdapter(
         lessonTV.text = lesson.name
         descriptionTV.text = lesson.description
         estimatedTV.text = lesson.estimated.toString()
-
+        resultView.setOnClickListener{
+            //TODO: resolve click
+            Toast.makeText(context, "Clicked item :"+" "+position, Toast.LENGTH_SHORT).show()
+        }
         return resultView
     }
+
 }

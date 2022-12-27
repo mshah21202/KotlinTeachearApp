@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AdapterView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,14 +20,12 @@ class MainActivity : AppCompatActivity() {
             Lesson("Lesson 2", "this is a description for lesson 2", 5),
             Lesson("Lesson 2", "this is a description for lesson 2", 8),
         )
-        //TODO: rest of the list
         arrayAdapter = LessonAdapter(
             this,
             R.layout.card_view, R.id.titleTV, lessons
         )
-
         mListView.adapter = arrayAdapter
-        mListView.onItemClickListener
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -40,4 +40,8 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 }
+
+
+
+
 
