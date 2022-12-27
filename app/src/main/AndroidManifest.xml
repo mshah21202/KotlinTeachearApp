@@ -25,6 +25,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <provider
+            android:authorities="com.example.kotlinteacherapp.QuizProvider"
+            android:name="QuizProvider"/>
     </application>
 
 </manifest>
