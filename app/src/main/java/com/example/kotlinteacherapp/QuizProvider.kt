@@ -34,7 +34,7 @@ class QuizProvider : ContentProvider() {
         val SCORES_TABLE_NAME = "scores"
         val DATABASE_VERSION = 1
         val CREATE_QUESTIONS_DB_TABLE =
-            "CREATE TABLE $QUESTIONS_TABLE_NAME ($_ID INTEGER PRIMARY KEY AUTOINCREMENT, $QUESTION TEXT NOT NULL, $ANSWER BOOLEAN NOT NULL);"
+            "CREATE TABLE $QUESTIONS_TABLE_NAME ($_ID INTEGER PRIMARY KEY AUTOINCREMENT, $QUESTION TEXT NOT NULL, $ANSWER TEXT NOT NULL);"
         val CREATE_SCORES_DB_TABLE =
             "CREATE TABLE $SCORES_TABLE_NAME ($_ID INTEGER PRIMARY KEY AUTOINCREMENT, $SCORE INTEGER NOT NULL);"
         private var qUriMatcher = UriMatcher(UriMatcher.NO_MATCH);
@@ -59,6 +59,31 @@ class QuizProvider : ContentProvider() {
             override fun onCreate(db: SQLiteDatabase) {
                 db.execSQL(CREATE_QUESTIONS_DB_TABLE)
                 db.execSQL(CREATE_SCORES_DB_TABLE)
+                val qArr =
+                    arrayOf(
+                        mapOf("statement" to "The when expression in Kotlin can be used as a replacement for a switch statement.", "answer" to "True"),
+                        mapOf("statement" to "In Kotlin, the `var` keyword is used to declare a variable that can be reassigned to a different value.", "answer" to "True"),
+                        mapOf("statement" to "The `when` expression in Kotlin can only be used with integers.", "answer" to "False"),
+                        mapOf("statement" to "In Kotlin, a class must have a primary constructor.", "answer" to "False"),
+                        mapOf("statement" to "The `!!` operator is used to convert a nullable type to a non-null type.", "answer" to "True"),
+                        mapOf("statement" to "The `?.` operator can be used to access a property or call a method on a nullable object only if it is not null.", "answer" to "True"),
+                        mapOf("statement" to "The `in` keyword can be used to check if a value is in a specific range.", "answer" to "True"),
+                        mapOf("statement" to "The `try` expression in Kotlin can only be used to handle exceptions.", "answer" to "False"),
+                        mapOf("statement" to "The `for` loop in Kotlin is used to iterate over an array or a list.", "answer" to "True"),
+                        mapOf("statement" to "The `object` keyword in Kotlin is used to create a singleton object.", "answer" to "True"),
+                        mapOf("statement" to "The `when` expression in Kotlin can be used as a replacement for a switch statement.", "answer" to "True"),
+                        mapOf("statement" to "The `val` keyword is used to declare a variable that can be reassigned to a different value.", "answer" to "False"),
+                        mapOf("statement" to "In Kotlin, a data class is used to store data and does not contain any logic.", "answer" to "True"),
+                        mapOf("statement" to "The `break` and `continue` keywords can be used in a `for` loop in Kotlin.", "answer" to "True"),
+                        mapOf("statement" to "The `is` keyword can be used in a `when` expression to check if an object is of a specific type.", "answer" to "True")
+                    )
+                for (q in qArr) {
+                    val content = ContentValues()
+                    content.put(QUESTION, q["statement"].toString())
+                    content.put(ANSWER, q["answer"].toString())
+
+                    db.insert(QUESTIONS_TABLE_NAME, "", content)
+                }
             }
 
             override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -73,31 +98,7 @@ class QuizProvider : ContentProvider() {
         val context = context
         val dbHelper = DatabaseHelper(context)
         db = dbHelper.writableDatabase
-        val qArr =
-            arrayOf(
-                mapOf("statement" to "The when expression in Kotlin can be used as a replacement for a switch statement.", "answer" to true),
-                mapOf("statement" to "In Kotlin, the `var` keyword is used to declare a variable that can be reassigned to a different value.", "answer" to true),
-                mapOf("statement" to "The `when` expression in Kotlin can only be used with integers.", "answer" to false),
-                mapOf("statement" to "In Kotlin, a class must have a primary constructor.", "answer" to false),
-                mapOf("statement" to "The `!!` operator is used to convert a nullable type to a non-null type.", "answer" to true),
-                mapOf("statement" to "The `?.` operator can be used to access a property or call a method on a nullable object only if it is not null.", "answer" to true),
-                mapOf("statement" to "The `in` keyword can be used to check if a value is in a specific range.", "answer" to true),
-                mapOf("statement" to "The `try` expression in Kotlin can only be used to handle exceptions.", "answer" to false),
-                mapOf("statement" to "The `for` loop in Kotlin is used to iterate over an array or a list.", "answer" to true),
-                mapOf("statement" to "The `object` keyword in Kotlin is used to create a singleton object.", "answer" to true),
-                mapOf("statement" to "The `when` expression in Kotlin can be used as a replacement for a switch statement.", "answer" to true),
-                mapOf("statement" to "The `val` keyword is used to declare a variable that can be reassigned to a different value.", "answer" to false),
-                mapOf("statement" to "In Kotlin, a data class is used to store data and does not contain any logic.", "answer" to true),
-                mapOf("statement" to "The `break` and `continue` keywords can be used in a `for` loop in Kotlin.", "answer" to true),
-                mapOf("statement" to "The `is` keyword can be used in a `when` expression to check if an object is of a specific type.", "answer" to true)
-            )
-        for (q in qArr) {
-            val content = ContentValues()
-            content.put(QUESTION, q["statement"].toString())
-            content.put(ANSWER, q["answer"].toString())
 
-            insert(QUESTIONS_URI, content)
-        }
         return db != null
     }
 
