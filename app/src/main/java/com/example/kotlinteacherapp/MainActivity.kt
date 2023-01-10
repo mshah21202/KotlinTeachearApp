@@ -1,5 +1,6 @@
 package com.example.kotlinteacherapp
 
+import android.content.Intent
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,9 +17,9 @@ class MainActivity : AppCompatActivity() {
         val arrayAdapter: LessonAdapter
 
         val lessons: Array<Lesson> = arrayOf(
-            Lesson("Lesson 1", "this is a description for lesson 1", 3),
-            Lesson("Lesson 2", "this is a description for lesson 2", 5),
-            Lesson("Lesson 2", "this is a description for lesson 2", 8),
+            Lesson("Lesson 1", "this is a description for lesson 1", 3, "https://www.youtube.com/watch?v=GP4p3d7_b2k&list=PLpZQVidZ65jPUF-o0LUvkY-XVAAkvL-Xb"),
+            Lesson("Lesson 2", "this is a description for lesson 2", 5, "https://www.youtube.com/watch?v=Q4uud_0hppw&list=PLpZQVidZ65jPUF-o0LUvkY-XVAAkvL-Xb&index=2"),
+            Lesson("Lesson 2", "this is a description for lesson 2", 8, "https://www.youtube.com/watch?v=U3xMvBYM55g&list=PLpZQVidZ65jPUF-o0LUvkY-XVAAkvL-Xb&index=3"),
         )
         arrayAdapter = LessonAdapter(
             this,
@@ -35,8 +36,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //TODO: quiz activity intent
-
+        when (item.itemId){
+            R.id.item1 -> {
+                val intent = Intent(this, QuizActivity::class.java )
+                startActivity(intent)
+            }
+        }
         return true
     }
 }

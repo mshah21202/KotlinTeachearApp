@@ -1,13 +1,18 @@
 package com.example.kotlinteacherapp
 
+import android.R.id
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import com.example.kotlinteacherapp.databinding.CardViewBinding
+import androidx.core.content.ContextCompat.startActivity
+
 
 class LessonAdapter(
     context: Context,
@@ -28,8 +33,8 @@ class LessonAdapter(
         descriptionTV.text = lesson.description
         estimatedTV.text = lesson.estimated.toString()
         resultView.setOnClickListener{
-            //TODO: resolve click
-            Toast.makeText(context, "Clicked item :"+" "+position, Toast.LENGTH_SHORT).show()
+            val youtubeIntent = Intent(Intent.ACTION_VIEW, Uri.parse(lesson.youtubeUrl)).apply {  }
+            startActivity(context, youtubeIntent, null)
         }
         return resultView
     }
